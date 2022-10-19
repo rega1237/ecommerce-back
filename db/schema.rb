@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_19_185858) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_19_214739) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "buy_sells", force: :cascade do |t|
+    t.date "date"
+    t.bigint "user_id", null: false
+    t.bigint "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_buy_sells_on_product_id"
+    t.index ["user_id"], name: "index_buy_sells_on_user_id"
+  end
 
   create_table "comments", force: :cascade do |t|
     t.text "comment"
@@ -46,11 +56,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_185858) do
     t.datetime "updated_at", null: false
     t.string "jti", null: false
     t.string "name", null: false
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["jti"], name: "index_users_on_jti", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "buy_sells", "products"
+  add_foreign_key "buy_sells", "users"
   add_foreign_key "comments", "products"
   add_foreign_key "comments", "users"
 end
