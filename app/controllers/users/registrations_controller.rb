@@ -4,7 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if user.save
       render json: { Status: 'User created successfully', user: }
     else
-      render json: { errors: { "email or password" => ["is invalid"] } }, status: :unprocessable_entity
+      render json: { errors: { 'email or password' => ['is invalid'] } }, status: :unprocessable_entity
     end
   end
 
