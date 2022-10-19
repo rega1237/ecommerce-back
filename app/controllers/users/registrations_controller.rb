@@ -1,19 +1,17 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  respond_to :json
+  def create
+    user = User.new(user_params)
+    if user.save
+      render json: { Status: 'User created successfully', user: }
+    else
+      render json: { errors: 'Error' }, status: :unprocessable_entity
+    end
+  end
 
   private
 
-  def respond_with(resource, _options = {})
-    if resource.persisted?
-      render json: {
-        status: { code: 200, message: 'Signed up successfully', data: resource }
-      }, status: :ok
-    else
-      render json: {
-        status: { message: 'User could not be created successfull',
-                  errors: resource.errors.full_messages }, message: :unprocessable_entity
-      }
-    end
+  def user_params
+    params.require(:user).permit(:name, :email, :password)
   end
 
   # before_action :configure_sign_up_params, only: [:create]
