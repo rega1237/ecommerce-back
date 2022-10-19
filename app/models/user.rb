@@ -10,4 +10,8 @@ class User < ApplicationRecord
   has_many :products, through: :comments
   has_many :buy_sells
   has_many :products, through: :buy_sells
+
+  validates :email, presence: true, uniqueness: true
+  validates :password, presence: true
+  validates :name, presence: true
 end
