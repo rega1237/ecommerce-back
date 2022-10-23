@@ -4,5 +4,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  resources :products
+  resources :products, only: [:index, :show, :create, :update, :destroy] do
+    resources :comments, only: [:show, :create, :update, :destroy]
+  end
 end

@@ -5,13 +5,13 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
-    render json: @product, status: :ok
-  end
-
-  def new
-    @product = Product.new
-    render json: @product
+    @product = Product.includes(:comments).find(params[:id])
+    render json: {
+      product_data: {
+        product: @product,
+        comments: @product.comments
+      }
+    }, status: :ok
   end
 
   def create
@@ -22,10 +22,6 @@ class ProductsController < ApplicationController
     else
       render json: @product.errors, status: :unprocessable_entity
     end
-  end
-
-  def edit
-    @product = Product.find(params[:id])
   end
 
   def update
@@ -44,7 +40,16 @@ class ProductsController < ApplicationController
     render json: @product, head: :no_content
   end
 
+  private
+
   def set_params
-    params.require(:product).permit(:name, :category, :description, :image, :price, :quantity)
+    params.require(:product).permit(
+      :name,
+      :category,
+      :description,
+      :image,
+      :price,
+      :quantity
+    )
   end
 end

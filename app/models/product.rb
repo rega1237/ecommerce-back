@@ -1,6 +1,4 @@
 class Product < ApplicationRecord
-  attr_accessor :name, :category, :description, :image, :price, :quantity, :bought_times
-
   has_many :comments
   has_many :users, through: :comments, dependent: :destroy
   has_many :buy_sells
