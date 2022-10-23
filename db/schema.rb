@@ -15,7 +15,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_22_234302) do
   enable_extension "plpgsql"
 
   create_table "buy_sells", force: :cascade do |t|
-    t.date "date"
     t.bigint "user_id", null: false
     t.bigint "product_id", null: false
     t.datetime "created_at", null: false
