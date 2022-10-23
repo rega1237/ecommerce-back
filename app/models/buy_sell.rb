@@ -4,8 +4,8 @@ class BuySell < ApplicationRecord
 
   after_save :update_product
 
-  private 
-  
+  private
+
   def update_product
     product = Product.find(product_id)
     product.update(bought_times: product.bought_times + 1)
