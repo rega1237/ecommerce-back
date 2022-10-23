@@ -4,14 +4,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if user.save
       render json: { Status: 'User created successfully', user: }
     else
-      render json: { errors: 'Error' }, status: :unprocessable_entity
+      render json: { errors: { 'email or password' => ['is invalid'] } }, status: :unprocessable_entity
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password)
+    params.require(:user).permit(:name, :email, :password, :admin)
   end
 
   # before_action :configure_sign_up_params, only: [:create]
