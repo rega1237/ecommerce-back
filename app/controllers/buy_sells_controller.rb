@@ -21,23 +21,4 @@ class BuySellsController < ApplicationController
       render json: { status: 400, message: 'Bad request' }
     end
   end
-
-  def edit
-    @buy_sell = BuySell.find(params[:id])
-  end
-
-  def update
-    @buy_sell = BuySell.find(params[:id])
-    if @buy_sell.update(buy_sell_params)
-      render json: { status: 200, message: 'BuySell updated successfully', data: @buy_sell }, status: :ok
-    else
-      render json: { status: 400, message: 'Bad request' }
-    end
-  end
-
-  def destroy
-    @buy_sell = BuySell.find(params[:id])
-    @buy_sell.destroy
-    render json: { status: 200, message: 'BuySell deleted successfully' }, status: :ok
-  end
 end
