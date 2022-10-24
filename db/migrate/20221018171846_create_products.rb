@@ -7,7 +7,7 @@ class CreateProducts < ActiveRecord::Migration[7.0]
       t.text :image
       t.float :price
       t.integer :quantity
-      t.integer :bought_times
+      t.integer :bought_times, default: 0
 
       t.timestamps
     end
