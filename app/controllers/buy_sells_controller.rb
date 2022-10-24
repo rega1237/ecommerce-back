@@ -8,7 +8,7 @@ class BuySellsController < ApplicationController
     @buy_sell = BuySell.find(params[:id])
     render json: @buy_sell
   end
-  
+
   def new
     @buy_sell = BuySell.new
   end
